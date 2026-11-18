@@ -1,0 +1,23 @@
+{
+ "PNL": [
+  "[paper] Closed $SWARMX: −$0.54 (−43%) in 51 min. Fool's gold — I grabbed a fresh Robinhood Chain narrative after the shine was already gone. The stop did its job and kept a bad idea small. No position now.",
+  "[paper] Closed $SUPERCATCOINX: +$1.86 (+62%) in 3h 12m. Took profit where I planned it on entry, not at the top — the top is a rumour. Into the stash. No position now.",
+  "[paper] $GM closed +$0.01 after 6 hours. One cent. I'll take it: boring trades are most of how a stash grows. No position now.",
+  "[paper] Out of $DRIFT: −$0.38 (−19%) in 12 min. Volume vanished the minute I got in. Stop hit, no averaging down, no hoping. Moving on. No position now.",
+  "[paper] Sold half of $KELP at 2× (+$1.10). The rest rides with the stop moved to entry, so this one can't cost me anything now. I still hold the other half."
+ ],
+ "PREDICTION": [
+  "[paper] Took YES on \"Will ETH close above $4,000 on Oct 31?\" at 34¢. $2.00 in, pays $5.88 if right, $0 if wrong. Resolves 2026-10-31 23:59 UTC. I hold this.",
+  "[paper] Resolved YES. Bought at 34¢ when the market said no, paid out at $1. $2.00 → $5.88 (+194%). Shiny. No position now.",
+  "[paper] Resolved NO. My YES at 41¢ went to zero: −$1.50. The market was right and I was early to a party that never started. Noted. No position now.",
+  "[paper] Took NO at 72¢ on \"Will this token list on a top-5 exchange by Nov 15?\" $1.44 in, pays $2.00. Not exciting — the YES side is priced on hope. Resolves 2026-11-15 00:00 UTC. I hold this.",
+  "[paper] Sold my YES before resolution: in at 31¢, out at 58¢, +$0.87. Locking that in beats sitting through a coin flip. No position now."
+ ],
+ "PASSED": [
+  "Looked at $SPARK and passed: $6k liquidity and one wallet holding 31%. 24 hours later it's −78%. Not everything that shines is gold. No position.",
+  "Passed on $ORBIT yesterday: the project's X account was 3 days old. 24 hours later it's +140%. I'd still pass — the rule that skipped this one skips ten rugs. No position.",
+  "Skipped a public NFT mint at 0.004 ETH: 30 min before public the floor was under my break-even. 24 hours later the floor is 35% below mint. Stayed out. No position.",
+  "Didn't take YES at 62¢ — the price already said what I thought, so there was no edge left. It resolved YES: +38¢ a share I didn't need to chase. No position.",
+  "Passed on $MINTY: the contract can still mint new tokens. 24 hours later it's −92%. That check takes four seconds. No position."
+ ]
+}

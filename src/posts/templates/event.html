@@ -1,0 +1,67 @@
+<!-- A temporary shared tech template in the "Night Market" style (based on brand/cards/pnl.html) — for events that
+     do not yet have their own template from Brand: WATCHING (thoughts), ENTRY, NFT, PREDICTION, PASSED. Brand's own template
+     brand/cards/<kind>.html replaces this one automatically. -->
+<div style="display:flex; width:1600px; height:900px; position:relative; font-family:'Space Grotesk'; color:#EEF3F8; background:#0A0F1C;">
+  <img src="asset:bg.svg" width="1600" height="900" style="position:absolute; left:0; top:0;" />
+  <img src="field:pose_src" width="640" height="640" style="position:absolute; right:-10px; bottom:30px;" />
+
+  <div style="display:flex; position:absolute; left:80px; top:64px; align-items:center;">
+    <img src="asset:mark.svg" width="44" height="44" />
+    <div style="display:flex; margin-left:16px; font-family:'Archivo'; font-weight:900; font-size:34px; letter-spacing:6px;">{{brand_name}}</div>
+    <div style="display:flex; margin-left:18px; font-size:26px; color:#7F8BA3;">{{brand_handle}}</div>
+  </div>
+  {{#if paper}}
+  <div style="display:flex; position:absolute; right:80px; top:60px; padding:10px 22px; border:3px solid #FFC857; border-radius:12px; color:#FFC857; font-family:'JetBrains Mono'; font-weight:700; font-size:26px; letter-spacing:4px; background:rgba(255,200,87,0.08);">PAPER TRADE</div>
+  {{/if}}
+  {{#if live}}
+  <div style="display:flex; position:absolute; right:80px; top:60px; padding:10px 22px; border-radius:12px; background:#86D6FF; color:#0A0F1C; font-family:'JetBrains Mono'; font-weight:700; font-size:26px; letter-spacing:4px;">LIVE</div>
+  {{/if}}
+  {{#if chip}}
+  <div style="display:flex; position:absolute; right:80px; top:60px; padding:10px 22px; border:3px solid #1E2B45; border-radius:12px; color:#AFC0D8; font-family:'JetBrains Mono'; font-weight:700; font-size:26px; letter-spacing:4px; background:rgba(16,24,42,0.85);">{{chip}}</div>
+  {{/if}}
+
+  <div style="display:flex; flex-direction:column; position:absolute; left:80px; top:160px; width:960px;">
+    <div style="display:flex; align-items:center; font-family:'JetBrains Mono'; font-size:24px; letter-spacing:4px; color:{{#if label_ice}}#86D6FF{{else}}#7F8BA3{{/if}};">
+      <div style="display:flex;">{{event_label}}</div>
+      {{#if chain}}<div style="display:flex; margin-left:18px; padding:6px 14px; border-radius:8px; background:#18233A; color:#AFC0D8; letter-spacing:1px; font-family:'Space Grotesk'; font-size:24px;">{{chain}}</div>{{/if}}
+    </div>
+    {{#if title_long}}
+    <div style="display:flex; margin-top:16px; font-family:'Space Grotesk'; font-weight:700; font-size:54px; line-height:1.12; letter-spacing:-1px; width:900px;">{{title}}</div>
+    {{else}}
+    <div style="display:flex; margin-top:14px; font-family:'Archivo'; font-weight:900; font-size:{{ticker_size}}px; line-height:1; letter-spacing:-2px;">{{title}}</div>
+    {{/if}}
+
+    {{#if big}}
+    <div style="display:flex; align-items:flex-end; margin-top:22px;">
+      <div style="display:flex; font-family:'JetBrains Mono'; font-weight:700; font-size:136px; line-height:1; letter-spacing:-6px; color:{{#if is_win}}#7CF2C9{{else}}#FF7A6B{{/if}};">{{big}}</div>
+      {{#if big2}}<div style="display:flex; margin-left:28px; margin-bottom:12px; font-family:'JetBrains Mono'; font-weight:700; font-size:44px; color:{{#if is_win}}#7CF2C9{{else}}#FF7A6B{{/if}};">{{arrow}} {{big2}}</div>{{/if}}
+    </div>
+    {{/if}}
+
+    {{#if quote}}
+    <div style="display:flex; margin-top:34px; width:900px; padding:6px 0 6px 30px; border-left:6px solid #86D6FF; font-family:'Space Grotesk'; font-weight:500; font-size:{{quote_size}}px; line-height:1.32; color:#EEF3F8;">{{quote}}</div>
+    {{/if}}
+
+    {{#if stat1_label}}
+    <div style="display:flex; margin-top:34px; font-family:'JetBrains Mono';">
+      <div style="display:flex; flex-direction:column; width:300px;">
+        <div style="display:flex; font-size:20px; letter-spacing:3px; color:#7F8BA3;">{{stat1_label}}</div>
+        <div style="display:flex; font-size:30px; font-weight:500; margin-top:6px;">{{stat1_value}}</div>
+      </div>
+      {{#if stat2_label}}<div style="display:flex; flex-direction:column; width:280px; margin-left:30px;">
+        <div style="display:flex; font-size:20px; letter-spacing:3px; color:#7F8BA3;">{{stat2_label}}</div>
+        <div style="display:flex; font-size:30px; font-weight:500; margin-top:6px;">{{stat2_value}}</div>
+      </div>{{/if}}
+      {{#if stat3_label}}<div style="display:flex; flex-direction:column; width:280px; margin-left:30px;">
+        <div style="display:flex; font-size:20px; letter-spacing:3px; color:#7F8BA3;">{{stat3_label}}</div>
+        <div style="display:flex; font-size:30px; font-weight:500; margin-top:6px;">{{stat3_value}}</div>
+      </div>{{/if}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div style="display:flex; position:absolute; left:80px; bottom:48px; font-family:'JetBrains Mono'; font-size:22px; color:#7F8BA3;">
+    <div style="display:flex;">{{date_utc}} · {{time_utc}}</div>
+    <div style="display:flex; margin-left:28px; color:#AFC0D8;">{{position_line}}</div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+{
+  "_readme": "EXAMPLE ONLY. Copy to server/config/gate.json. The gate decides which chat messages reach the analyst model. Put the Discord servers (or intake categories, one per source) and channels you want to read from here, and set every threshold yourself — these are example values. Keep your real file off GitHub.",
+  "default": {
+    "escalateScore": 4,
+    "buzzSingleServer": {
+      "authors": 4,
+      "minutes": 20
+    },
+    "buzzCrossServer": {
+      "servers": 2,
+      "minutes": 45
+    },
+    "topicBoost": {},
+    "trustedAuthorScore": 8
+  },
+  "_servers": "One key per source server, lower case, as the category name arrives in intake. Example: weigh NFT talk higher on one server.",
+  "servers": {
+    "servera": {
+      "topicBoost": {
+        "nft": 1.3
+      }
+    },
+    "serverb": {}
+  },
+  "channelModels": {
+    "_comment": "server/channel → analyst model for that channel (a cheaper model for noisy scan channels).",
+    "serverb/scan-feed": "claude-haiku-5-5"
+  },
+  "scanChannels": [
+    "serverb/scan-feed"
+  ],
+  "scanPrefilter": {
+    "_comment": "Scan channels: a token reaches the model only if the pair has liquidity, buys and at least one sell. Example values — set your own.",
+    "minLiquidityUsd": 8000,
+    "minBuys24h": 15,
+    "minSells24h": 1
+  }
+}

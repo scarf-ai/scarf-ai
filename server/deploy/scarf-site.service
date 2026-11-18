@@ -1,0 +1,33 @@
+# SCARF — website (page + mascot answers). Separate from the agent: a site failure does not affect trading.
+# Installed as a separate systemd unit. Listens on 127.0.0.1:8787 only — reachable from outside only through a Cloudflare tunnel.
+# The site never gets the agent's keys (wallet keystore); from .env it reads only ANTHROPIC_API_KEY and SITE_*.
+[Unit]
+Description=SCARF site: page + mascot answers
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agent
+Group=agent
+WorkingDirectory=/opt/agent
+Environment=PATH=/opt/node22/bin:/usr/local/bin:/usr/bin:/bin
+Environment=NODE_ENV=production
+Environment=TZ=UTC
+ExecStart=/opt/node22/bin/node /opt/agent/node_modules/tsx/dist/cli.mjs src/site/server.ts
+Restart=always
+RestartSec=10
+MemoryMax=300M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/agent/server/data
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

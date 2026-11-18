@@ -1,0 +1,3 @@
+# Daily backup of the AGENT log at 03:17 UTC, kept for 14 days. Install to /etc/cron.d/agent-backup.
+CRON_TZ=UTC
+17 3 * * * agent /usr/bin/sqlite3 /opt/agent/server/data/agent.sqlite ".backup '/opt/agent-backup/agent-$(date -u +\%F).sqlite'" && find /opt/agent-backup -name 'agent-*.sqlite' -mtime +14 -delete

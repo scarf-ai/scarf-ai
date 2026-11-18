@@ -1,0 +1,30 @@
+# Secrets — never in the repository
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+*keystore*.json
+
+# Server data: database, review log, keystore
+server/data/
+
+# Your trust scores for alpha authors — local machine and server only (the repository has trust-sources.example.csv)
+server/config/trust-sources.csv
+server/config/risk.json
+server/config/gate.json
+server/config/smart-accounts.csv
+server/config/agent-brief.md
+
+# Restored by npm install / the build
+node_modules
+.pw-browsers/
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini

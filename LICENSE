@@ -1,0 +1,21 @@
+SCARF Source-Available License
+
+Copyright (c) 2026 SCARF. All rights reserved.
+
+1. Permitted use. You may view and read the source code in this repository, and you may download and run it
+   locally for your own personal evaluation and for non-commercial research.
+
+2. Not permitted without prior written permission from the copyright holder:
+   a) any commercial use of this software or any part of it;
+   b) copying, distributing, sublicensing or selling this software or any part of it;
+   c) publishing modified versions or derivative works;
+   d) using this software, or any part of it, to trade, mint, bridge or otherwise move real funds
+      (mainnet assets of any value).
+
+3. Forking this repository on GitHub is permitted as provided by the GitHub Terms of Service; it grants no rights
+   beyond those in section 1.
+
+4. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+   LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+   SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, LOSS OF FUNDS OR OTHER LIABILITY ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE. NOTHING HERE IS FINANCIAL ADVICE.

@@ -1,0 +1,148 @@
+{
+  "_readme": "EXAMPLE VALUES ONLY. Copy to server/config/risk.json and set every number yourself — these are placeholders chosen to be valid and reasonable, not the numbers SCARF trades with. A wrong field falls back to the example default in src/config.ts (DEFAULT_RISK) and blocks new entries until fixed. Keep your real file off GitHub. The test suite uses this same file (test/fixtures/risk.example.json).",
+  "initialCapitalUsd": 100,
+  "_initialCapitalUsd": "Example value — set your own. Your starting capital in USD; the hard stop is counted from it.",
+  "huntBucketShare": 1.0,
+  "perActionShareByTier": {
+    "follow": 0.45,
+    "fast": 0.2,
+    "full": 0.08
+  },
+  "_perActionShareByTier": "Example values — set your own. Max share of the bucket per action, by source trust tier (follow = trust 10, fast = 7–9, full = 4–6).",
+  "minActionUsd": 0.3,
+  "maxGasShareOfCapital": 0.12,
+  "maxGasShareOfAction": 0.25,
+  "maxOpenPositions": 6,
+  "dailyLossStopShareOfDayStart": 0.2,
+  "_dailyLossStopShareOfDayStart": "Example value — set your own. Daily stop: loss of the day (closed + open) as a share of the bucket at 00:00 UTC; new entries stop until 00:00 UTC.",
+  "hardStopEquityShare": 0.55,
+  "_hardStopEquityShare": "Example value — set your own. Equity below this share of initialCapitalUsd → full stop and a message to the owner.",
+  "memecoinExit": {
+    "stopLossPct": 40,
+    "takeProfit1x": 2,
+    "takeProfit1Share": 0.5,
+    "trailingStopPct": 25,
+    "timeStopHours": 24,
+    "timeStopMinGainPct": 15
+  },
+  "_memecoinExit": "Example values — set your own. Single exit rule for memecoins, used when memecoinClasses is absent.",
+  "mintCapExcludesGas": true,
+  "live": {
+    "slippageBps": 500,
+    "bridgeMaxShareOfEquity": 0.5,
+    "mintMaxShareOfEquity": 0.25,
+    "mintMaxWallets": 8
+  },
+  "_live": "Example values — set your own. Live execution limits. Live trading stays off unless AGENT_MODE=live, AGENT_EXECUTION=live and AGENT_LIVE_CONFIRM=yes are all set.",
+  "memecoinClasses": {
+    "version": 2,
+    "callMinTrust": 2,
+    "profiles": {
+      "call": {
+        "floorPct": 45,
+        "ladder": [
+          [
+            1.2,
+            0.2
+          ],
+          [
+            1.8,
+            0.2
+          ],
+          [
+            2.7,
+            0.2
+          ],
+          [
+            4.05,
+            0.2
+          ]
+        ],
+        "trailingPct": 35,
+        "breakevenAfterFirst": true,
+        "checks": [
+          [
+            20,
+            0.75
+          ],
+          [
+            45,
+            0.7
+          ],
+          [
+            90,
+            0.65
+          ],
+          [
+            300,
+            0.85
+          ]
+        ],
+        "holdHours": 48,
+        "moonbag": {
+          "share": 0.2,
+          "stopPct": 80,
+          "armX": 5,
+          "trailingPct": 50,
+          "maxHours": 336
+        }
+      },
+      "scan": {
+        "floorPct": 70,
+        "ladder": [
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.44,
+            0.4
+          ]
+        ],
+        "trailingPct": 0,
+        "breakevenAfterFirst": true,
+        "checks": [
+          [
+            20,
+            0.75
+          ],
+          [
+            45,
+            0.7
+          ],
+          [
+            90,
+            0.65
+          ]
+        ],
+        "holdHours": 48,
+        "moonbag": {
+          "share": 0.2,
+          "stopPct": 80,
+          "armX": 5,
+          "trailingPct": 50,
+          "maxHours": 336
+        }
+      }
+    },
+    "maxOpenMoonbags": 3,
+    "analystSellByScope": "core",
+    "analystStopTightens": false
+  },
+  "_memecoinClasses": "Example values — set your own. Exit profiles: call = source with trust ≥ callMinTrust; scan = bot cards, unknown authors, own picks. ladder: [price multiple, share of the whole position]; after the first sale the rest sits at break-even; checks: [minutes, multiple] — before any sale, price below the multiple → the core exits; floorPct — emergency floor; holdHours — max hold of the core; moonbag — a small tail counted from entry.",
+  "memecoinEntry": {
+    "version": 1,
+    "maxRunUp1h": 1.8,
+    "freshPairMaxMinutes": 12,
+    "oldPairMinHours": 20,
+    "shareOfCapital": 0.08,
+    "ageRuleExemptMinTrust": null
+  },
+  "_memecoinEntry": "Example values — set your own. Skip if the price already ran up ≥ maxRunUp1h× in the hour before the signal; buy only fresh pairs (< freshPairMaxMinutes) or old ones (≥ oldPairMinHours); stake ≤ shareOfCapital of the bucket. ageRuleExemptMinTrust: null = off.",
+  "noPrice": {
+    "exitHours": 8,
+    "writeOffHours": 36,
+    "retryMinutes": 15
+  },
+  "_noPrice": "Example values — set your own. A position with no price feed: sell after exitHours, write off after writeOffHours, retry every retryMinutes."
+}

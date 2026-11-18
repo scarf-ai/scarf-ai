@@ -1,0 +1,633 @@
+{
+ "requests": [
+  {
+   "model": "claude-opus-5-5",
+   "max_tokens": 8000,
+   "system": [
+    {
+     "type": "text",
+     "text": "SYSTEM brief",
+     "cache_control": {
+      "type": "ephemeral",
+      "ttl": "1h"
+     }
+    }
+   ],
+   "tools": [
+    {
+     "name": "get_market",
+     "description": "DexScreener market data for a token address (price, liquidity, FDV, pair age, 24h buys/sells).",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "address": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "address"
+      ]
+     }
+    },
+    {
+     "name": "x_profile",
+     "description": "X account stats: followers, age, verification, bio.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "handle": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "handle"
+      ]
+     }
+    },
+    {
+     "name": "x_search",
+     "description": "X posts for a query (ticker, address, project name, narrative keyword). Up to 20 posts. type: Latest (default) or Top (most engaged).",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "query": {
+        "type": "string"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "Latest",
+         "Top"
+        ]
+       }
+      },
+      "required": [
+       "query"
+      ]
+     }
+    },
+    {
+     "name": "domain_age",
+     "description": "Domain registration age in days (RDAP).",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "domain": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "domain"
+      ]
+     }
+    },
+    {
+     "name": "fetch_page",
+     "description": "Visible text of a web page. Only URLs that appear in the messages or the dossier are allowed.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "url": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "url"
+      ]
+     }
+    },
+    {
+     "name": "browse_site",
+     "description": "Open a website in a real browser (JavaScript rendered) and read it, its buttons, and up to 3 of its own pages about tasks, quests, points, rewards or mint. Use it for points/testnet/quest/mint sites and apps rendered by JS. Only sites from the message or the dossier.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "url": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "url"
+      ]
+     }
+    },
+    {
+     "name": "trends",
+     "description": "What is trending now: top trending pools on a chain (GeckoTerminal), boosted tokens (DexScreener) and what SCARF's communities discuss most in 24h. Use it to judge whether a token rides a live narrative or copies one.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "chain": {
+        "type": "string",
+        "enum": [
+         "solana",
+         "ethereum",
+         "base",
+         "arbitrum",
+         "bsc"
+        ]
+       }
+      },
+      "required": [
+       "chain"
+      ]
+     }
+    },
+    {
+     "name": "mentions",
+     "description": "How many authors and servers mentioned a key recently. Key format: evm:0x.., sol:<mint>, ticker:abc, domain:x.com, x:handle, collection:slug.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "key": {
+        "type": "string"
+       },
+       "hours": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "key"
+      ]
+     }
+    },
+    {
+     "name": "emit_verdict",
+     "description": "Final answer. Call exactly once when the analysis is done.",
+     "input_schema": {
+      "type": "object",
+      "properties": {
+       "verdict": {
+        "type": "string",
+        "enum": [
+         "act",
+         "watch",
+         "ignore",
+         "avoid"
+        ],
+        "description": "act = take the action now; watch = interesting but not yet; ignore = nothing here; avoid = likely scam/loser"
+       },
+       "project": {
+        "type": "object",
+        "properties": {
+         "name": {
+          "type": "string"
+         },
+         "category": {
+          "type": "string",
+          "enum": [
+           "memecoin",
+           "nft",
+           "defi",
+           "points",
+           "listing",
+           "infra",
+           "other",
+           "none"
+          ]
+         }
+        }
+       },
+       "scores": {
+        "type": "object",
+        "properties": {
+         "source": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         },
+         "social": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         },
+         "mechanics": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         },
+         "team": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         },
+         "market": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         },
+         "timing": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+         }
+        }
+       },
+       "thesis": {
+        "type": "string",
+        "description": "Why, in 1-4 short English sentences."
+       },
+       "risks": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "intents": {
+        "type": "array",
+        "maxItems": 5,
+        "description": "Only when verdict=act. Addresses/URLs/functions copied exactly from the Discord messages.",
+        "items": {
+         "type": "object",
+         "properties": {
+          "kind": {
+           "type": "string",
+           "enum": [
+            "token_call",
+            "contract_call",
+            "mint",
+            "dapp_task",
+            "airdrop_points",
+            "social_task",
+            "perp_trade",
+            "prediction_bet",
+            "nft_buy",
+            "listing_news",
+            "unlock_news",
+            "protocol_news",
+            "warning",
+            "chatter"
+           ]
+          },
+          "asset": {
+           "type": "string",
+           "description": "perp_trade: market ticker as named in the message (BTC, ETH, SOL…)."
+          },
+          "side": {
+           "type": "string",
+           "enum": [
+            "long",
+            "short"
+           ],
+           "description": "perp_trade only."
+          },
+          "leverage": {
+           "type": "number",
+           "description": "perp_trade: leverage from the call if stated (code caps it)."
+          },
+          "stopPrice": {
+           "type": "number",
+           "description": "perp_trade: stop-loss price (required by risk rules; code sets a default if missing or invalid). prediction_bet: sell if the outcome price falls to this (0..1)."
+          },
+          "takeProfitPrice": {
+           "type": "number",
+           "description": "perp_trade: take-profit price. prediction_bet: sell before resolution at this price (0..1); omit to hold to resolution."
+          },
+          "stopLossPct": {
+           "type": "number",
+           "description": "token_call: your stop-loss, % below entry (code allows only tighter than its default stop, min 5%). Put the level that invalidates your thesis (e.g. FDV falls back below X)."
+          },
+          "takeProfitX": {
+           "type": "number",
+           "description": "token_call: take-profit as a multiple of entry (e.g. 1.5 = +50%)."
+          },
+          "takeProfitShare": {
+           "type": "number",
+           "description": "token_call: share to sell at take-profit, 0.25–1 (1 = full exit for a quick flip)."
+          },
+          "sellByHours": {
+           "type": "number",
+           "description": "token_call: sell no later than N hours after entry whatever the price (quick trades)."
+          },
+          "chain": {
+           "type": "string",
+           "enum": [
+            "solana",
+            "robinhood",
+            "ethereum",
+            "base",
+            "arbitrum",
+            "bsc",
+            "polygon",
+            "unknown"
+           ]
+          },
+          "marketSlug": {
+           "type": "string",
+           "description": "prediction_bet: market slug exactly as in dossier.predictions[].slug."
+          },
+          "collection": {
+           "type": "string",
+           "description": "nft_buy: OpenSea collection slug exactly as in dossier.nft[].slug (buy the cheapest listing)."
+          },
+          "maxPriceEth": {
+           "type": "number",
+           "description": "nft_buy: the most you would pay for one NFT, ETH; above it — skip."
+          },
+          "outcome": {
+           "type": "string",
+           "description": "prediction_bet: outcome name exactly as in the dossier (e.g. \"Yes\", \"No\", a candidate name)."
+          },
+          "limitPrice": {
+           "type": "number",
+           "description": "prediction_bet: the most you would pay per share (0..1); above it the bet is skipped."
+          },
+          "tokenAddress": {
+           "type": "string"
+          },
+          "ticker": {
+           "type": "string"
+          },
+          "contractAddress": {
+           "type": "string"
+          },
+          "functionName": {
+           "type": "string"
+          },
+          "functionSelector": {
+           "type": "string"
+          },
+          "args": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "valueEth": {
+           "type": "number"
+          },
+          "urls": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "summary": {
+           "type": "string"
+          },
+          "deadlineUtc": {
+           "type": "string"
+          },
+          "stance": {
+           "type": "string",
+           "enum": [
+            "buy",
+            "sell",
+            "neutral"
+           ]
+          },
+          "needsHuman": {
+           "type": "string",
+           "enum": [
+            "captcha",
+            "kyc",
+            "discord_role",
+            "other"
+           ]
+          },
+          "confidence": {
+           "type": "number"
+          },
+          "sourceIdx": {
+           "type": "integer",
+           "description": "Chat batch only: number [n] of the message this action comes from."
+          }
+         },
+         "required": [
+          "kind",
+          "chain",
+          "urls",
+          "summary",
+          "stance",
+          "confidence"
+         ]
+        }
+       },
+       "exits": {
+        "type": "array",
+        "maxItems": 3,
+        "description": "Held positions to close now (token address exactly as in the portfolio).",
+        "items": {
+         "type": "object",
+         "properties": {
+          "token": {
+           "type": "string"
+          },
+          "reason": {
+           "type": "string"
+          },
+          "sourceIdx": {
+           "type": "integer",
+           "description": "Chat batch only: message [n] with the warning."
+          }
+         },
+         "required": [
+          "token",
+          "reason"
+         ]
+        }
+       },
+       "sizeFactor": {
+        "type": "number",
+        "minimum": 0.25,
+        "maximum": 1,
+        "description": "Optional: shrink the risk-gate size (never grows it)."
+       },
+       "recheckAfterMinutes": {
+        "type": "integer",
+        "description": "For watch: when a re-check makes sense."
+       },
+       "recheckAtUtc": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Exact ISO UTC times to re-check (e.g. 30 min before public mint)."
+       },
+       "projects": {
+        "type": "array",
+        "maxItems": 4,
+        "description": "One entry per distinct project in the message.",
+        "items": {
+         "type": "object",
+         "properties": {
+          "ref": {
+           "type": "string",
+           "description": "Key from the case (collection:slug, domain:site.xyz, evm:0x.., sol:.., ticker:abc) or the exact name."
+          },
+          "name": {
+           "type": "string",
+           "description": "Human-readable project/token name."
+          },
+          "verdict": {
+           "type": "string",
+           "enum": [
+            "act",
+            "watch",
+            "ignore",
+            "avoid"
+           ]
+          },
+          "category": {
+           "type": "string",
+           "enum": [
+            "memecoin",
+            "nft",
+            "defi",
+            "points",
+            "listing",
+            "infra",
+            "other",
+            "none"
+           ]
+          },
+          "thesis": {
+           "type": "string"
+          },
+          "recheckAtUtc": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "publicNote": {
+           "type": "string",
+           "description": "For act and watch projects: the X note about THIS project (PUBLIC NOTE rules). Empty for ignore/avoid."
+          },
+          "changeReason": {
+           "type": "string",
+           "description": "If your earlier verdict on this project (project history, 24 h) differs: the new fact that changed it."
+          }
+         },
+         "required": [
+          "ref",
+          "verdict",
+          "thesis"
+         ]
+        }
+       },
+       "nftPlan": {
+        "type": "object",
+        "description": "For NFT mints: flip = list at floor right after mint; hold = wait for targetMultiple of cost or sellByUtc.",
+        "properties": {
+         "style": {
+          "type": "string",
+          "enum": [
+           "flip",
+           "hold"
+          ]
+         },
+         "targetMultiple": {
+          "type": "number"
+         },
+         "sellByUtc": {
+          "type": "string"
+         },
+         "stopFloorMultiple": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "style"
+        ]
+       },
+       "thesisStrength": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 10,
+        "description": "How concrete and verifiable the reasons for upside are (0 = vibes, 10 = clear catalyst + data)."
+       },
+       "expectedHoldHours": {
+        "type": "number",
+        "description": "Expected hours until the main take-profit."
+       },
+       "publicNote": {
+        "type": "string",
+        "description": "For act and watch: posted on X as-is under SCARF's name (see PUBLIC NOTE rules). English, first person, 1-2 sentences, max 230 characters (190 for a token: the post adds its CA). For ignore/avoid: empty string."
+       },
+       "confidence": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+       },
+       "changeReason": {
+        "type": "string",
+        "description": "Only when the project history shows your earlier verdict on this project (last 24 h) and this one is different: the NEW fact that changed it (new contract, new market data, a condition met, a new credible source). Empty otherwise. Code keeps the earlier verdict if you raise it without a reason."
+       }
+      },
+      "required": [
+       "verdict",
+       "thesis",
+       "confidence",
+       "publicNote"
+      ]
+     }
+    }
+   ],
+   "tool_choice": {
+    "type": "auto"
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "CASE gm ",
+       "cache_control": {
+        "type": "ephemeral"
+       }
+      }
+     ]
+    }
+   ],
+   "output_config": {
+    "effort": "medium"
+   },
+   "thinking": {
+    "type": "adaptive",
+    "display": "summarized"
+   }
+  }
+ ],
+ "execCalls": [],
+ "result": {
+  "verdict": {
+   "verdict": "ignore",
+   "thesis": "nothing here",
+   "confidence": 0.9,
+   "publicNote": ""
+  },
+  "usage": [
+   {
+    "input_tokens": 100,
+    "output_tokens": 10,
+    "cache_read_input_tokens": 1,
+    "cache_creation_input_tokens": 0
+   }
+  ],
+  "toolCalls": [],
+  "trace": [
+   {
+    "stop": "tool_use",
+    "thinking": [
+     "quick look"
+    ],
+    "text": [
+     "done"
+    ],
+    "tools": [
+     {
+      "name": "emit_verdict",
+      "input": {
+       "verdict": "ignore",
+       "thesis": "nothing here",
+       "confidence": 0.9,
+       "publicNote": ""
+      }
+     }
+    ]
+   }
+  ]
+ }
+}

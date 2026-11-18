@@ -1,0 +1,57 @@
+<div style="display:flex; width:1600px; height:900px; position:relative; font-family:'IBM Plex Mono'; color:#14213D; background:#F4ECDD;">
+  <img src="asset:bg.svg" width="1600" height="900" style="position:absolute; left:0; top:0;" />
+  <img src="field:pose_src" width="600" height="600" style="position:absolute; left:975px; top:262px;" />
+
+  <!-- letterhead (fixed on every card) -->
+  <div style="display:flex; position:absolute; left:96px; top:84px; width:1408px; justify-content:space-between; align-items:flex-end;">
+    <div style="display:flex; align-items:baseline;">
+      <div style="display:flex; font-family:'Fraunces'; font-weight:900; font-size:52px; letter-spacing:-1px;">Bidwell</div>
+      <div style="display:flex; margin-left:16px; font-size:22px; letter-spacing:4px; color:#8A7A5C;">JUNIOR TRADER · @bidwell_ai</div>
+    </div>
+    {{#if paper}}<div style="display:flex; padding:6px 18px; border:3px solid #B8893B; color:#B8893B; font-weight:600; font-size:24px; letter-spacing:6px; border-radius:6px;">PAPER DESK</div>{{else}}<div style="display:flex; padding:6px 18px; background:#14213D; color:#F4ECDD; font-weight:600; font-size:24px; letter-spacing:6px; border-radius:6px;">LIVE DESK</div>{{/if}}
+  </div>
+  <div style="display:flex; position:absolute; left:96px; top:156px; width:1408px; height:3px; background:#14213D;"></div>
+
+  <div style="display:flex; flex-direction:column; position:absolute; left:96px; top:190px; width:880px;">
+    <div style="display:flex; font-size:24px; color:#8A7A5C;">MEMO · {{date_utc}} · {{chain}} · position closed</div>
+    <div style="display:flex; align-items:baseline; margin-top:10px;">
+      <div style="display:flex; font-family:'Fraunces'; font-weight:900; font-size:{{ticker_size}}px; line-height:1.05; letter-spacing:-2px;">{{ticker}}</div>
+    </div>
+
+    <div style="display:flex; align-items:flex-end; margin-top:18px;">
+      <div style="display:flex; font-family:'JetBrains Mono'; font-weight:700; font-size:136px; line-height:1; letter-spacing:-6px; color:{{#if is_win}}#1F6F78{{else}}#D9573E{{/if}};">{{pnl_usd}}</div>
+      <div style="display:flex; flex-direction:column; margin-left:26px; margin-bottom:10px;">
+        <div style="display:flex; font-family:'JetBrains Mono'; font-weight:700; font-size:40px; color:{{#if is_win}}#1F6F78{{else}}#D9573E{{/if}};">{{arrow}} {{pnl_pct}}</div>
+        <div style="display:flex; font-size:22px; letter-spacing:5px; margin-top:6px; color:#8A7A5C;">{{result_word}}</div>
+      </div>
+    </div>
+
+    <div style="display:flex; margin-top:24px; width:800px; height:150px; border:2px solid #14213D; background:#FBF6EC; padding:9px;">
+      <img src="field:chart_src" width="780" height="130" />
+    </div>
+
+    <div style="display:flex; margin-top:20px; font-family:'JetBrains Mono'; font-size:24px;">
+      <div style="display:flex; flex-direction:column; width:300px;">
+        <div style="display:flex; font-family:'IBM Plex Mono'; font-size:18px; letter-spacing:3px; color:#8A7A5C;">ENTRY → EXIT</div>
+        <div style="display:flex; margin-top:4px;">{{entry_price}} → {{exit_price}}</div>
+      </div>
+      <div style="display:flex; flex-direction:column; width:210px; margin-left:24px;">
+        <div style="display:flex; font-family:'IBM Plex Mono'; font-size:18px; letter-spacing:3px; color:#8A7A5C;">IN → OUT</div>
+        <div style="display:flex; margin-top:4px;">{{size_in}} → {{size_out}}</div>
+      </div>
+      <div style="display:flex; flex-direction:column; width:110px; margin-left:24px;">
+        <div style="display:flex; font-family:'IBM Plex Mono'; font-size:18px; letter-spacing:3px; color:#8A7A5C;">HELD</div>
+        <div style="display:flex; margin-top:4px;">{{held}}</div>
+      </div>
+      <div style="display:flex; flex-direction:column; width:190px; margin-left:24px;">
+        <div style="display:flex; font-family:'IBM Plex Mono'; font-size:18px; letter-spacing:3px; color:#8A7A5C;">EXIT</div>
+        <div style="display:flex; margin-top:4px;">{{exit_reason}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; position:absolute; left:96px; bottom:70px; font-size:21px; color:#8A7A5C;">
+    <div style="display:flex;">{{time_range}}</div>
+    <div style="display:flex; margin-left:24px; color:#14213D;">{{position_line}}</div>
+  </div>
+</div>

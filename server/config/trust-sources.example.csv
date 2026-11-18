@@ -1,0 +1,7 @@
+﻿level,server,channel,author,score,mode,inherit,note
+server,ServerA,,,5,,,EXAMPLE: the whole server by default — put your own sources and scores here
+channel,ServerA,core-calls,,8,opus,,team calls: authors without a score inherit the channel score
+channel,ServerA,chat,,3,chat,,general chat: authors without a score get 0
+channel,ServerB,scan-feed,,,opus,careful,bot scan channel
+author,ServerA,,caller1,9,,,team member
+author,,,caller2,7,,,known member on every server

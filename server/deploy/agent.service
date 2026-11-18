@@ -1,0 +1,34 @@
+# AGENT — systemd service. Installed as a systemd unit during server deployment.
+# The mode comes from .env (AGENT_MODE=paper by default). Live needs explicit flags (see .env.example).
+[Unit]
+Description=AGENT (paper): Discord intake, analyst, paper execution
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agent
+Group=agent
+WorkingDirectory=/opt/agent
+Environment=PATH=/opt/node22/bin:/usr/local/bin:/usr/bin:/bin
+Environment=NODE_ENV=production
+Environment=TZ=UTC
+ExecStart=/opt/node22/bin/node /opt/agent/node_modules/tsx/dist/cli.mjs src/index.ts
+Restart=always
+RestartSec=30
+# 78 — configuration error (invalid token, bot not in the server): do not restart, wait for a fix
+RestartPreventExitStatus=78
+# Hardening: the process can write only to the log folder and cannot escalate privileges
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/agent/server/data
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

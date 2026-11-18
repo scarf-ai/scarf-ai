@@ -1,0 +1,19 @@
+{
+  "name": "SCARF",
+  "ticker": "$SCARF",
+  "handle": "@scarf_ai",
+  "handle_registered": true,
+  "link_field": "link in bio — no domain until it is bought",
+  "colors": {
+    "bg": "#0A0F1C", "bg_panel": "#10182A", "border": "#1E2B45",
+    "text": "#EEF3F8", "text_muted": "#7F8BA3", "text_soft": "#AFC0D8",
+    "accent_ice": "#86D6FF", "paper_badge": "#FFC857",
+    "profit": "#7CF2C9", "loss": "#FF7A6B", "chart_baseline": "#3A4A68"
+  },
+  "fonts": {
+    "wordmark_and_ticker": "Archivo 900",
+    "numbers": "JetBrains Mono 400/500/700 (only font here with ▲▼ and subscript digits)",
+    "text": "Space Grotesk 500/700"
+  },
+  "card_sizes": { "main": [1600, 900], "pnl_vertical": [1080, 1350] }
+}

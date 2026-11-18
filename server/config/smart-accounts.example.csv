@@ -1,0 +1,7 @@
+# EXAMPLE ONLY. Copy to server/config/smart-accounts.csv.
+# Smart X accounts: if they follow or mention a project, the analyst treats it as a strong signal.
+# Format: handle,note (no @). Lines starting with # are comments. Changes are picked up without a restart.
+# Put the X accounts whose attention matters to you here (traders, funds, founders, ecosystem people).
+handle,note
+example_trader,trader
+example_fund,fund
